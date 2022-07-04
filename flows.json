@@ -1,0 +1,294 @@
+[
+    {
+        "id": "1e7e79f.0934f86",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "61dc9ad2.56c684",
+        "type": "modbus-read",
+        "z": "1e7e79f.0934f86",
+        "name": "",
+        "topic": "",
+        "showStatusActivities": true,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "0",
+        "quantity": "3",
+        "rate": "1000",
+        "rateUnit": "ms",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "c45e7fd7.ff6cd",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "x": 290,
+        "y": 260,
+        "wires": [
+            [
+                "a58f893a.e022a8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a58f893a.e022a8",
+        "type": "function",
+        "z": "1e7e79f.0934f86",
+        "name": "",
+        "func": "var mss = {\"payload\":\"{\\\\\\\"total\\\\\\\":\"+msg.payload[2]+\",\\\\\\\"hitam\\\\\\\":\"+msg.payload[0]+\",\\\\\\\"putih\\\\\\\":\"+msg.payload[1]+\"}\"};\nreturn mss;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 520,
+        "y": 180,
+        "wires": [
+            [
+                "b8bc148c.fd0018"
+            ]
+        ]
+    },
+    {
+        "id": "5b693cce.a29f14",
+        "type": "debug",
+        "z": "1e7e79f.0934f86",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "b8bc148c.fd0018",
+        "type": "template",
+        "z": "1e7e79f.0934f86",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{\n\"m2m:rqp\": {\n\"fr\": \"73d1ed20f3577c32:fc6e98b965e63f21\",\n\"to\": \"/antares-cse/antares-id/SmartConveyor/conv-1\",\n\"op\": 1,\n\"rqi\": 123456,\n\"pc\": {\n\"m2m:cin\": {\n\"cnf\": \"message\",\n\"con\": \"{{{payload}}}\"\n}\n},\n\"ty\": 4\n}\n}",
+        "output": "str",
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "c9442055.59af8",
+                "5b693cce.a29f14"
+            ]
+        ]
+    },
+    {
+        "id": "c9442055.59af8",
+        "type": "mqtt out",
+        "z": "1e7e79f.0934f86",
+        "name": "Antares",
+        "topic": "/oneM2M/req/73d1ed20f3577c32:fc6e98b965e63f21/antares-cse/json",
+        "qos": "0",
+        "retain": "true",
+        "broker": "58017d9d93392460",
+        "x": 760,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "26852cd7.4ccaa4",
+        "type": "inject",
+        "z": "1e7e79f.0934f86",
+        "name": "0",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 240,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c93751e.947efa",
+        "type": "inject",
+        "z": "1e7e79f.0934f86",
+        "name": "1",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 210,
+        "y": 700,
+        "wires": [
+            [
+                "4df00b74.ecd424"
+            ]
+        ]
+    },
+    {
+        "id": "94fe89c5.468758",
+        "type": "modbus-write",
+        "z": "1e7e79f.0934f86",
+        "name": "",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "3",
+        "quantity": "1",
+        "server": "c45e7fd7.ff6cd",
+        "x": 800,
+        "y": 500,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2e6b8594.69220a",
+        "type": "inject",
+        "z": "1e7e79f.0934f86",
+        "name": "",
+        "props": [
+            {
+                "p": "requestTimeout",
+                "v": "1000",
+                "vt": "num"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 210,
+        "y": 620,
+        "wires": [
+            [
+                "e4a81b49.c1f1a8"
+            ]
+        ]
+    },
+    {
+        "id": "924dc7aa.2d0ce8",
+        "type": "function",
+        "z": "1e7e79f.0934f86",
+        "name": "",
+        "func": "if(msg.statusCode === 200){\n    return {\"payload\" : 0};\n}\nelse{\n    return {\"payload\" : 1};\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 540,
+        "y": 620,
+        "wires": [
+            [
+                "94fe89c5.468758",
+                "5b693cce.a29f14"
+            ]
+        ]
+    },
+    {
+        "id": "e4a81b49.c1f1a8",
+        "type": "http request",
+        "z": "1e7e79f.0934f86",
+        "name": "web",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://www.google.com",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 620,
+        "wires": [
+            [
+                "924dc7aa.2d0ce8"
+            ]
+        ]
+    },
+    {
+        "id": "4df00b74.ecd424",
+        "type": "mraa-gpio-dout",
+        "z": "1e7e79f.0934f86",
+        "name": "",
+        "d13suffix": " (Green LED)",
+        "pin": "13",
+        "set": "",
+        "level": "0",
+        "x": 470,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "c45e7fd7.ff6cd",
+        "type": "modbus-client",
+        "z": "",
+        "name": "",
+        "clienttype": "simpleser",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "tcpHost": "127.0.0.1",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyS2",
+        "serialType": "RTU",
+        "serialBaudrate": "57600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectTimeout": "2000"
+    },
+    {
+        "id": "58017d9d93392460",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt.antares.id",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    }
+]
